@@ -2,7 +2,10 @@ package budhioct.dev.service;
 
 import budhioct.dev.dto.TodoDTO;
 
+import budhioct.dev.exception.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -23,9 +26,22 @@ public class TodoRestTemplateService {
         return Arrays.asList(todos != null ? todos : new TodoDTO[0]);
     }
 
+    //public TodoDTO getTodoById(int id) {
+    //    String url = "https://jsonplaceholder.typicode.com/todos/" + id;
+    //    TodoDTO data = restTemplate.getForObject(url, TodoDTO.class);
+    //    return data;
+    //}
+
     public TodoDTO getTodoById(int id) {
         String url = "https://jsonplaceholder.typicode.com/todos/" + id;
-        TodoDTO data = restTemplate.getForObject(url, TodoDTO.class);
-        return data;
+        try {
+            TodoDTO data = restTemplate.getForObject(url, TodoDTO.class);
+            return data;
+        } catch (HttpClientErrorException e) {
+            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                throw new ResourceNotFoundException("Todo with id " + id + " not found");
+            }
+            throw e;
+        }
     }
 }
