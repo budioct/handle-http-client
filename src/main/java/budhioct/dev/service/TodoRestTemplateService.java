@@ -22,4 +22,10 @@ public class TodoRestTemplateService {
         TodoDTO[] todos = restTemplate.getForObject(url, TodoDTO[].class); // public <T> T getForObject(String url, Class<T> responseType, Object... uriVariables) throws RestClientException
         return Arrays.asList(todos != null ? todos : new TodoDTO[0]);
     }
+
+    public TodoDTO getTodoById(int id) {
+        String url = "https://jsonplaceholder.typicode.com/todos/" + id;
+        TodoDTO data = restTemplate.getForObject(url, TodoDTO.class);
+        return data;
+    }
 }

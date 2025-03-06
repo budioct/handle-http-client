@@ -4,6 +4,7 @@ import budhioct.dev.dto.TodoDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 public class TodoWebClientService {
@@ -19,5 +20,12 @@ public class TodoWebClientService {
                 .uri("/todos/")
                 .retrieve()
                 .bodyToFlux(TodoDTO.class);
+    }
+
+    public Mono<TodoDTO> getTodoById(int id) {
+        return webClient.get()
+                .uri("/todos/{id}", id)
+                .retrieve()
+                .bodyToMono(TodoDTO.class);
     }
 }
