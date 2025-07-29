@@ -2,12 +2,14 @@ package budhioct.dev.service;
 
 import budhioct.dev.dto.TodoDTO;
 import budhioct.dev.exception.ResourceNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @Service
 public class TodoWebClientService {
 
@@ -18,6 +20,7 @@ public class TodoWebClientService {
     }
 
     public Flux<TodoDTO> getTodos() {
+        log.info("Service Web Client get getTodos() called");
         return webClient.get()
                 .uri("/todos/")
                 .retrieve()
@@ -32,6 +35,7 @@ public class TodoWebClientService {
     //}
 
     public Mono<TodoDTO> getTodoById(int id) {
+        log.info("Service Web Client get getTodos() called, id: {}", id);
         return webClient.get()
                 .uri("/todos/{id}", id)
                 .retrieve()
