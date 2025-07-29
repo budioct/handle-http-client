@@ -1,0 +1,17 @@
+### GET Todos using RestTemplate
+GET http://localhost:8080/todos/resttemplate
+
+### GET Detail Todo using RestTemplate, max id 200
+GET http://localhost:8080/todos/resttemplate/1
+
+### GET Todos using WebClient
+GET http://localhost:8080/todos/webclient
+
+### GET Detail Todo using WebClient, max id 200
+GET http://localhost:8080/todos/webclient/2
+
+### GET Todos using Feign
+GET http://localhost:8080/todos/feign
+
+### GET Detail Todo using OpenFeign, max id 200
+GET http://localhost:8080/todos/feign/2
